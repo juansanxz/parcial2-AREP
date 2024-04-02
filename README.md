@@ -49,6 +49,6 @@ Juan Felipe Sánchez Pérez
 
 * Para cumplir con los requerimientos definidos en la arquitectura, se hizo lo siguiente:
   1. La clase `ServicProxy` cumple el rol de servidor proxy, que se comunica con el cliente para atender el servicio que le sea solicitado. 
-
+  [video.mp4](video.mp4)
 
    
