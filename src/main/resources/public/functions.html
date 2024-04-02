@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Functions</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<h1>Factors</h1>
+<form action="/factors">
+    <label for="factors-of">Value to calculate factors:</label><br>
+    <input type="text" id="factors-of" name="factors-of" value=""><br><br>
+    <input type="button" value="Submit" onclick="loadGetMsgFactors()">
+</form>
+<div id="getrespmsgfactors"></div>
+
+<h1>Primes</h1>
+<form action="/primes">
+    <label for="primes-of">Value to calculate primes:</label><br>
+    <input type="text" id="primes-of" name="primes-of" value=""><br><br>
+    <input type="button" value="Submit" onclick="loadGetMsgPrimes()">
+</form>
+<div id="getrespmsgprimes"></div>
+
+<script>
+    function loadGetMsgFactors() {
+        let value = document.getElementById("factors-of").value;
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function() {
+            document.getElementById("getrespmsgfactors").innerHTML =
+            this.responseText;
+        }
+        xhttp.open("GET", "/factors?value="+value);
+        xhttp.send();
+    }
+
+    function loadGetMsgPrimes() {
+        let value = document.getElementById("primes-of").value;
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function() {
+            document.getElementById("getrespmsgprimes").innerHTML =
+            this.responseText;
+        }
+        xhttp.open("GET", "/primes?value="+value);
+        xhttp.send();
+    }
+</script>
+</body>
+</html>
