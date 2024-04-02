@@ -23,7 +23,7 @@ public class MathServices {
             int value = Integer.parseInt(req.queryParams("value"));
             res.type("application/json");
             String answer = "{\r\n" +
-                    "\"operation\": \"factors\",\r\n" +
+                    "\"operation\": \"primes\",\r\n" +
                     "\"input\": " + value + ",\r\n" +
                     "\"output\": \"" + primes(value) + "\"\r\n" +
                     "}";
