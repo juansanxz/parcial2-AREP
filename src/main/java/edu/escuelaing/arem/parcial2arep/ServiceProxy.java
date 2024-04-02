@@ -9,8 +9,10 @@ import static spark.Spark.*;
 public class ServiceProxy
 {
 
-    private static String[] urls = {"http://localhost:5000/", "http://localhost:5000/"};
-    public static void main(String... args){
+    private static String[] urls = {};
+    public static void main(String[] args){
+        urls[0] = args[0];
+        urls[1] = args[1];
         port(getPort());
         staticFileLocation("/public");
         RemoteConnection remoteConnection = new RemoteConnection(urls);
