@@ -9,7 +9,7 @@ import static spark.Spark.*;
 public class ServiceProxy
 {
 
-    private static String[] urls = {};
+    private static String[] urls = {"", ""};
     public static void main(String[] args){
         urls[0] = args[0];
         urls[1] = args[1];
