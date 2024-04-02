@@ -20,6 +20,7 @@ public class RemoteConnection {
         if(position > 1){
             position = 0;
         }
+
         URL obj = new URL(urls[position] + arg);
         position ++;
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();

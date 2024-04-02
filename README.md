@@ -24,31 +24,39 @@ Juan Felipe Sánchez Pérez
       mvn clean install
    ```
 4. Ahora, en la máquina virtual que definió como el servidor proxy, use el siguiente comando para ejecutar el servicio:
-  ```
-    java -cp "target/classes:target/dependency/*" edu.escuelaing.arem.parcial2arep.ServiceProxy {dns de la primera instancia ec2 que ejecuta MathService:5000/} {dns de la segunda instancia ec2 que ejecuta MathService:5000/}
-  ```
-  Por ejemplo, debe verse así:  
-  ![img.png](img.png)  
+   ```
+       java -cp "target/classes:target/dependency/*" edu.escuelaing.arem.parcial2arep.ServiceProxy {dns de la primera instancia ec2 que ejecuta MathService:5000/} {dns de la segunda instancia ec2 que ejecuta MathService:5000/}
+   ```
+    Por ejemplo, debe verse así:  
+   ![img.png](img/img.png)  
   
-5. Luego, en las otras dos máquinas virtuales que se encargan de ejecutar el servicio de `MathService`, use el siguiente comando:
-  ![img_1.png](img_1.png)  
+5. Luego, en las otras dos máquinas virtuales que se encargan de ejecutar el servicio de `MathService`, use el siguiente comando:  
+  ![img_1.png](img/img_1.png)  
   Verá algo como lo siguiente en ambas instancias Ec2:  
-   ![img_2.png](img_2.png)  
+   ![img_2.png](img/img_2.png)  
 
-6. Ya se encuentra disponible el servicio para ser utilizado. Ingrese a la siguiente URL: `http://{dns de servidor proxy}:4567/functions.html`. En este caso, yo usé `http://ec2-54-242-255-126.compute-1.amazonaws.com:4567/functions.html`.
-  ![img_3.png](img_3.png)  
+6. Ya se encuentra disponible el servicio para ser utilizado. Ingrese a la siguiente URL: `http://{dns de servidor proxy}:4567/functions.html`. En este caso, yo usé `http://ec2-54-242-255-126.compute-1.amazonaws.com:4567/functions.html`.  
+  ![img_3.png](img/img_3.png)  
 
-7. Una vez aquí, podemos comprobar el funcionamiento de las dos funciones:
-  * La primera calcula los factores de un número:
-    ![img_4.png](img_4.png)
+7. Una vez aquí, podemos comprobar el funcionamiento de las dos funciones:  
+  * La primera calcula los factores de un número:  
+    ![img_4.png](img/img_4.png)  
   
-  * La segunda, calcula los primeros n números primos de acuerdo a un n dado:
-    ![img_5.png](img_5.png)
+  * La segunda, calcula los primeros n números primos de acuerdo a un n dado:  
+    ![img_5.png](img/img_5.png)  
 
 ## Decisiones de diseño
 
 * Para cumplir con los requerimientos definidos en la arquitectura, se hizo lo siguiente:
-  1. La clase `ServicProxy` cumple el rol de servidor proxy, que se comunica con el cliente para atender el servicio que le sea solicitado. 
-  [video.mp4](video.mp4)
+  1. La clase `ServiceProxy` cumple el rol de servidor proxy, que se comunica con el cliente para atender el servicio que le sea solicitado. Para ello, usa la clase `RemorteConnection` para realizar a trevés de esta los llamados a los servicios expuestos por `MathServices`. 
+  2. `RemoteConnection` hace uso de un algoritmo de balanceo de cargas  Round Robin para enviar las solicitudes de forma secuencial a las dos instancias de Ec2 que atienden tal servicio.  
+  3. Para saber a que URL solicitar el servicio, están son enviadas como argumentos a la función main de `ServiceProxy` (como se mencionó en el paso 4 de la sección _Instrucciones para ejecución_), quien se encarga a su vez de enviarlas a la clase `RemoteConnection` que tiene la lógica necesaria para llamar a las dos instancias de Ec2.
+  4. `MathServices` contiene la lógica necesaria para las funciones _factors_ y _primes_. y construye un JSON con la respuesta.
+  5. Una instancia de Ec2 ejecuta la clase `ServiceProxy`, y otras dos instancias ejecutan de forma simultánea el servicio `MathServices`. El cliente se comunica con el servidor proxy, y este último a través del algoritmo Round Robin, realiza la solicitud a alguna de las dos instancias que se encuentran ejecutando la clase `MathServices`.
+
+## Video
+
+A continuación se presenta el correcto funcionamiento e implementación de la arquitectura solicitada. En primer lugar, se observa la ejecución en cada instancia de Ec2 de las clases correspondientes, y luego se muestra el funcionamiento de los servicios al ser solicitados desde el cliente. Finalmente, se demuestra el dns usado, que corresponde a la instancia que ejecuta `ServiceProxy`  
+[video.mp4](img/video.mp4)
 
    
