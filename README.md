@@ -31,14 +31,17 @@ Juan Felipe Sánchez Pérez
    ![img.png](img/img.png)  
   
 5. Luego, en las otras dos máquinas virtuales que se encargan de ejecutar el servicio de `MathService`, use el siguiente comando:  
+  ```
+    java -cp "target/classes:target/dependency/*" edu.escuelaing.arem.parcial2arep.MathServices
+  ```  
   ![img_1.png](img/img_1.png)  
   Verá algo como lo siguiente en ambas instancias Ec2:  
    ![img_2.png](img/img_2.png)  
 
-6. Ya se encuentra disponible el servicio para ser utilizado. Ingrese a la siguiente URL: `http://{dns de servidor proxy}:4567/functions.html`. En este caso, yo usé `http://ec2-54-242-255-126.compute-1.amazonaws.com:4567/functions.html`.  
+7. Ya se encuentra disponible el servicio para ser utilizado. Ingrese a la siguiente URL: `http://{dns de servidor proxy}:4567/functions.html`. En este caso, yo usé `http://ec2-54-242-255-126.compute-1.amazonaws.com:4567/functions.html`.  
   ![img_3.png](img/img_3.png)  
 
-7. Una vez aquí, podemos comprobar el funcionamiento de las dos funciones:  
+8. Una vez aquí, podemos comprobar el funcionamiento de las dos funciones:  
   * La primera calcula los factores de un número:  
     ![img_4.png](img/img_4.png)  
   
@@ -56,7 +59,8 @@ Juan Felipe Sánchez Pérez
 
 ## Video
 
-A continuación se presenta el correcto funcionamiento e implementación de la arquitectura solicitada. En primer lugar, se observa la ejecución en cada instancia de Ec2 de las clases correspondientes, y luego se muestra el funcionamiento de los servicios al ser solicitados desde el cliente. Finalmente, se demuestra el dns usado, que corresponde a la instancia que ejecuta `ServiceProxy`  
+A continuación se presenta el correcto funcionamiento e implementación de la arquitectura solicitada. En primer lugar, se observa la ejecución en cada instancia de Ec2 de las clases correspondientes, y luego se muestra el funcionamiento de los servicios al ser solicitados desde el cliente. Finalmente, se demuestra el dns usado, que corresponde a la instancia que ejecuta `ServiceProxy`.  
+Para visualizar el video, de click sobre él, y luego presione _View raw_, lo cual descargará el mismo.
 [video.mp4](img/video.mp4)
 
    
